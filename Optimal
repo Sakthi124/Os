@@ -1,51 +1,60 @@
-int main() {
+#include<stdio.h>
 
-int n, pg[30], fr[10];
+int main()
 
-int count[10], i, j, k, fault, f, flag, temp, current, c, dist, max, m, cnt, p, x;
+{
 
-fault = 0;
+int n,pg[30],fr[10];
 
-dist = 0;
+int count[10],i,j,k,fault,f,flag,temp,current,c,dist,max,m,cnt,p,x;
 
-k = 0;
+fault=0;
 
-printf("Enter the total number of pages: ");
+dist=0;
 
-scanf("%d", &n);
+k=0;
 
-printf("Enter the page reference sequence:\n");
+printf("Enter the total no pages:\t");
 
-for(i = 0; i < n; i++) {
+scanf("%d",&n);
 
-scanf("%d", &pg[i]);
+printf("Enter the sequence:");
+
+for(i=0;i<n;i++)
+
+scanf("%d",&pg[i]);
+
+printf("\nEnter frame size:");
+
+scanf("%d",&f);
+
+for(i=0;i<f;i++)
+
+{
+
+count[i]=0;
+
+fr[i]=-1;
 
 }
 
-printf("\nEnter frame size: ");
+for(i=0;i<n;i++)
 
-scanf("%d", &f);
+{
 
-for(i = 0; i < f; i++) {
+flag=0;
 
-count[i] = 0;
-fr[i] = -1;
+temp=pg[i];
 
-}
+for(j=0;j<f;j++)
 
-printf("\nPage reference sequence\tPage frames\n");
+{
 
-for(i = 0; i < n; i++) {
+if(temp==fr[j])
 
-flag = 0;
+{
 
-temp = pg[i];
-
-for(j = 0; j < f; j++) {
-
-if(temp == fr[j]) {
-
-flag = 1;
+flag=1;
 
 break;
 
@@ -53,29 +62,39 @@ break;
 
 }
 
-if(flag == 0 && k < f) {
+if((flag==0)&&(k<f))
+
+{
 
 fault++;
 
-fr[k] = temp;
+fr[k]=temp;
 
 k++;
 
-} else if(flag == 0 && k == f) {
+}
+
+else if((flag==0)&&(k==f))
+
+{
 
 fault++;
 
-for(cnt = 0; cnt < f; cnt++) {
+for(cnt=0;cnt<f;cnt++)
 
-current = fr[cnt];
+{
 
-for(c = i + 1; c < n; c++) {
+current=fr[cnt];
 
-if(current != pg[c]) {
+for(c=i;c<n;c++)
+
+{
+
+if(current!=pg[c])
 
 count[cnt]++;
 
-} else {
+else
 
 break;
 
@@ -83,39 +102,43 @@ break;
 
 }
 
-}
+max=0;
 
-max = -1;
+for(m=0;m<f;m++)
 
-for(m = 0; m < f; m++) {
+{
 
-if(count[m] > max) {
+if(count[m]>max)
 
-max = count[m];
+{
 
-p = m;
+max=count[m];
 
-}
-
-}
-
-fr[p] = temp;
-
-}
-
-printf("\nPage %d\t\t", pg[i]);
-
-for(x = 0; x < f; x++) {
-
-printf("%d\t", fr[x]);
-
-}
-for(x = 0; x < f; x++) {
-
-count[x] = 0;
+p=m;
 
 }
 
 }
 
-printf("\nTotal number of page faults: %d\
+fr[p]=temp;
+
+}
+
+printf("\npage %d frame\t",pg[i]);
+
+for(x=0;x<f;x++)
+
+{
+
+printf("%d\t",fr[x]);
+
+}
+
+}
+
+printf("\nTotal number of faults=%d",fault);
+
+return 0;
+
+}
+
